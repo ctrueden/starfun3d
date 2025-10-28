@@ -27,10 +27,12 @@ classifiers = [
 requires-python = ">=3.10"
 dependencies = [
     "stardist",
-    "numpy",
+    "numpy<2",
     "tensorflow",
     "csbdeep",
     "ndv[qt]",
+    "scipy",
+    "pygfx<0.13.0",
 ]
 
 [dependency-groups]

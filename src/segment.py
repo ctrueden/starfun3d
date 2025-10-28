@@ -3,6 +3,7 @@
 import numpy as np
 from pathlib import Path
 from stardist.models import StarDist3D
+from csbdeep.utils import normalize
 
 
 def segment_3d(
@@ -10,7 +11,7 @@ def segment_3d(
     model_path: str | Path = "models/confocal",
     prob_thresh: float | None = None,
     nms_thresh: float | None = None,
-    normalize: bool = True,
+    normalize_input: bool = True,
 ) -> tuple[np.ndarray, dict]:
     """
     Segment nuclei in a 3D volume using a pre-trained StarDist model.
@@ -26,8 +27,8 @@ def segment_3d(
         Probability threshold for object detection. If None, uses model default.
     nms_thresh : float, optional
         Non-maximum suppression threshold. If None, uses model default.
-    normalize : bool, optional
-        Whether to normalize the input image. Default: True.
+    normalize_input : bool, optional
+        Whether to normalize the input image to 0-1 range. Default: True.
 
     Returns
     -------
@@ -51,6 +52,9 @@ def segment_3d(
     # Load the pre-trained model
     model = StarDist3D(None, name="confocal", basedir=Path(model_path).parent)
 
+    # Normalize input if requested
+    img = normalize(image, 1, 99.8) if normalize_input else image
+
     # Prepare prediction arguments
     predict_kwargs = {}
     if prob_thresh is not None:
@@ -60,8 +64,7 @@ def segment_3d(
 
     # Perform segmentation
     labels, details = model.predict_instances(
-        image,
-        normalize=normalize,
+        img,
         **predict_kwargs,
     )
 
@@ -71,6 +74,7 @@ def segment_3d(
 def segment_3d_batch(
     images: list[np.ndarray],
     model_path: str | Path = "models/confocal",
+    normalize_input: bool = True,
     **kwargs,
 ) -> list[tuple[np.ndarray, dict]]:
     """
@@ -82,8 +86,10 @@ def segment_3d_batch(
         List of 3D numpy arrays to segment.
     model_path : str or Path, optional
         Path to the StarDist model directory.
+    normalize_input : bool, optional
+        Whether to normalize input images. Default: True.
     **kwargs
-        Additional keyword arguments passed to segment_3d.
+        Additional keyword arguments passed to predict_instances.
 
     Returns
     -------
@@ -95,7 +101,8 @@ def segment_3d_batch(
 
     results = []
     for image in images:
-        labels, details = model.predict_instances(image, **kwargs)
+        img = normalize(image, 1, 99.8) if normalize_input else image
+        labels, details = model.predict_instances(img, **kwargs)
         results.append((labels, details))
 
     return results
