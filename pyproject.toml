@@ -30,6 +30,7 @@ dependencies = [
     "numpy",
     "tensorflow",
     "csbdeep",
+    "ndv[qt]",
 ]
 
 [dependency-groups]
