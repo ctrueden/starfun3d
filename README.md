@@ -6,7 +6,7 @@ Segmenting nuclei with StarDist... in 3D!
 
 Try it yourself!
 ```
-uv run src/main.py
+pixi run src/main.py
 ```
 
 ### Credits

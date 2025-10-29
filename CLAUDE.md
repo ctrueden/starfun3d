@@ -8,38 +8,54 @@ StarFun3D is a simple 3D nuclei segmentation playground using pre-trained StarDi
 
 ## Key Commands
 
-**Prerequisites**: Requires `uv` package manager (https://docs.astral.sh/uv/getting-started/installation/)
+**Prerequisites**: Requires `pixi` package manager (https://pixi.sh/latest/#installation)
 
 **Running the application**:
 ```bash
-uv run src/main.py
+pixi run start
+# Or directly:
+pixi run python src/main.py
+```
+
+**With CUDA acceleration** (recommended for faster inference):
+```bash
+pixi run -e cuda start
+# Or for development with CUDA:
+pixi run -e cuda-dev start
 ```
 
 **Linting and formatting**:
 ```bash
 make lint
 # Or directly:
-uv run ruff check --fix
-uv run ruff format
+pixi run lint
 ```
 
 **Running tests**:
 ```bash
 make test
 # Or with specific test:
-uv run python -m pytest -v -p no:faulthandler tests
-uv run python -m pytest -v -p no:faulthandler test_file.py::test_function
+pixi run test
+pixi run pytest -v -p no:faulthandler test_file.py::test_function
 ```
 
 **Validation**:
 ```bash
-uv run validate-pyproject pyproject.toml
+pixi run validate
 ```
 
 **Building distribution**:
 ```bash
 make dist
+# Or directly:
+pixi run dist
 ```
+
+**Available environments**:
+- `default`: Standard CPU environment
+- `cuda`: CPU environment with CUDA support for GPU acceleration
+- `dev`: Development environment with testing/linting tools
+- `cuda-dev`: Development environment with CUDA support
 
 ## Architecture
 

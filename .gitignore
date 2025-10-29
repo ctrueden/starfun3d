@@ -1,4 +1,5 @@
 *.egg-info/
+/.pixi/
 /archive/
-/uv.lock
+/pixi.lock
 __pycache__/
