@@ -71,29 +71,18 @@ build = "*"
 validate-pyproject = { extras = ["all"] }
 
 # ---------------- TASKS (cmd holds the whole command line) ---------------- #
+[tasks]
+# Main application
+start = "python src/main.py"
 
-[tasks.start]
-cmd = "python src/main.py"
+# Development tasks
+lint = "ruff check --fix && ruff format"
+test = "pytest -v -p no:faulthandler tests"
+validate = "validate-pyproject pyproject.toml"
+dist = "python -m build"
 
-
-[tasks.lint-fix]
-cmd = "ruff check --fix"
-
-[tasks.lint-format]
-cmd = "ruff format"
-
-[tasks.test]
-cmd = "pytest -v -p no:faulthandler tests"
-
-[tasks.validate]
-cmd = "validate-pyproject pyproject.toml"
-
-[tasks.dist]
-cmd = "python -m build"
-
-# Meta-task that runs others
-[tasks.check]
-depends-on = ["validate", "lint-fix", "lint-format"]
+# Combined tasks
+check = {depends-on = ["validate", "lint"]}
 
 # ---------------- ENVIRONMENTS ---------------- #
 
