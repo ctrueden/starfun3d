@@ -8,6 +8,14 @@ Try it yourself!
 ```
 pixi run src/main.py
 ```
+To run with GPU support on Windows or Linux:
+```
+pixi run -e cuda start
+```
+or
+```
+pixi run -e cuda python src/main.py
+```
 
 ### Credits
 
