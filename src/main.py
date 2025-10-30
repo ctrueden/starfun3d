@@ -1,3 +1,4 @@
+import time
 import numpy as np
 from segment import segment_3d
 from scipy.ndimage import gaussian_filter, zoom
@@ -57,8 +58,10 @@ volume = make_synthetic_nuclei(n_nuclei=8)
 print(f"Volume shape: {volume.shape}, range: [{volume.min():.3f}, {volume.max():.3f}]")
 
 print("Invoking 3D segmentation...")
+t1 = time.time_ns()
 labels, details = segment_3d(volume)
-print(f"Detected {labels.max()} nuclei")
+t2 = time.time_ns()
+print(f"Detected {labels.max()} nuclei in {(t2-t1)/1_000_000_000} s")
 
 # Visualize with ndv
 print("Launching ndv viewer...")
