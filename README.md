@@ -6,7 +6,7 @@ Segmenting nuclei with StarDist... in 3D!
 
 Try it yourself!
 ```
-pixi run src/main.py
+pixi run python src/main.py
 ```
 To run with GPU support on Windows or Linux:
 ```
