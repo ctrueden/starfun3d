@@ -7,7 +7,7 @@ name = "starfun3d"
 version = "0.0.0.dev0"
 description = "StarDist-based segmentation. In 3D."
 license = "Unlicense"
-authors = [{name = "Curtis Rueden"}]
+authors = [{name = "Curtis Rueden", "Carlos Garcia"}]
 readme = "README.md"
 keywords = ["python", "segmentation"]
 classifiers = [
