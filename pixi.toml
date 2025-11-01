@@ -38,16 +38,12 @@ tensorflow = "*"                 # latest CPU TF for Intel mac
 tensorflow-macos = "*"           # latest TF for Apple Silicon
 tensorflow-metal = "*"           # Metal plugin
 
-
-
 # ---------------- Macos no metal - ONLY APPLE SILICON ----------------
 [feature.nometal]
 channels = ["conda-forge"]
 
 [feature.nometal.target.osx-arm64.pypi-dependencies]
-tensorflow = "*"     
-
-
+tensorflow = "*"
 
 # ---------------- CUDA feature (Windows/Linux only) ----------------
 [feature.cuda]
@@ -67,8 +63,6 @@ PATH = "%CONDA_PREFIX%\\Library\\bin;%PATH%"
 
 [feature.cuda.target.linux-64.activation.env]
 LD_LIBRARY_PATH = "$CONDA_PREFIX/lib:${LD_LIBRARY_PATH:-}"
-
-
 
 # Dev feature
 [feature.dev.dependencies]
@@ -98,6 +92,6 @@ check = {depends-on = ["validate", "lint"]}
 [environments]
 default = { solve-group = "default" }
 cuda    = { features = ["cuda"], solve-group = "default" }
-nometal    = { features = ["nometal"], solve-group = "default" }
+nometal = { features = ["nometal"], solve-group = "default" }
 dev     = { features = ["dev"],  solve-group = "default" }
 cuda-dev= { features = ["cuda","dev"], solve-group = "default" }
